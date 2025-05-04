@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "728777921116",
+    "project_id": "messageapp-94876",
+    "storage_bucket": "messageapp-94876.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728777921116:android:de41bbf10341458a80cc99",
+        "android_client_info": {
+          "package_name": "com.karadumanm.messageappkotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNnMxK1K--YvOFymSCVr25xpkv_LaFMRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
