@@ -1,12 +1,15 @@
 package com.karadumanm.messageappkotlin.viewmodel
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.karadumanm.messageappkotlin.database.Database
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 class SignUpViewModel:ViewModel() {
 
@@ -17,9 +20,14 @@ class SignUpViewModel:ViewModel() {
 
     fun signUp(context: Context, navController: NavHostController, email: String, displayName: String, password: String){
         println("SignUpViewModel signUp: $email $displayName $password")
-        var response = db.signUp(email, password, displayName)
-        if(response){
-            navController.navigate("SignInScreen")
+        viewModelScope.launch {
+            val response =db.signUp(email,password,displayName)
+            if(response){
+                Toast.makeText(context, "User created successfully", Toast.LENGTH_SHORT).show()
+                navController.navigate("SignInScreen")
+            } else {
+                Toast.makeText(context, "User creation failed, try again", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -33,6 +41,18 @@ class SignUpViewModel:ViewModel() {
     }
 
 }
+
+
+/*
+signUp
+println("SignUpViewModel signUp: $email $displayName $password")
+        var response = db.signUp(email, password, displayName)
+        println("SignUpViewModel signUp(): response - $response")
+        if(response){
+            Toast.makeText(context, "User created successfully", Toast.LENGTH_SHORT).show()
+            navController.navigate("SignInScreen")
+        }
+ */
 
 /*
         //Register to firestore db
