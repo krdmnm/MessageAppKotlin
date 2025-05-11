@@ -21,12 +21,12 @@ class SignUpViewModel:ViewModel() {
     fun signUp(context: Context, navController: NavHostController, email: String, displayName: String, password: String){
         println("SignUpViewModel signUp: $email $displayName $password")
         viewModelScope.launch {
-            val response =db.signUp(email,password,displayName)
+            val response = db.signUp(email,password,displayName)
             if(response){
-                Toast.makeText(context, "User created successfully", Toast.LENGTH_SHORT).show()
+                _uiMessage.value = "User Created Successfully"
                 navController.navigate("SignInScreen")
             } else {
-                Toast.makeText(context, "User creation failed, try again", Toast.LENGTH_SHORT).show()
+                _uiMessage.value = "User Creation Failed, Try Again"
             }
         }
     }
