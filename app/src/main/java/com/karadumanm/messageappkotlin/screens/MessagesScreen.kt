@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.karadumanm.messageappkotlin.R
+import com.karadumanm.messageappkotlin.entities.AppUser
 import com.karadumanm.messageappkotlin.ui.theme.designColor
 import com.karadumanm.messageappkotlin.viewmodel.MessagesViewModel
 
@@ -30,6 +31,9 @@ fun MessagesScreen(viewModel: MessagesViewModel, navController: NavHostControlle
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(5.dp)) {
         items(messages.size) {
+            PersonCard()
+            PersonCard()
+            PersonCard()
             PersonCard()
         }
     }

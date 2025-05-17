@@ -17,12 +17,14 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.karadumanm.messageappkotlin.entities.AppUser
 import com.karadumanm.messageappkotlin.repository.getFromSharedPrefs
+import com.karadumanm.messageappkotlin.screens.AddPersonScreen
 import com.karadumanm.messageappkotlin.screens.AppBar
 import com.karadumanm.messageappkotlin.screens.MessagesScreen
 import com.karadumanm.messageappkotlin.screens.SignInScreen
 import com.karadumanm.messageappkotlin.screens.SignUpScreen
 import com.karadumanm.messageappkotlin.screens.UpdateProfileScreen
 import com.karadumanm.messageappkotlin.ui.theme.MessageAppKotlinTheme
+import com.karadumanm.messageappkotlin.viewmodel.AddPersonViewModel
 import com.karadumanm.messageappkotlin.viewmodel.MessagesViewModel
 import com.karadumanm.messageappkotlin.viewmodel.SignInViewModel
 import com.karadumanm.messageappkotlin.viewmodel.SignUpViewModel
@@ -33,6 +35,7 @@ class MainActivity : ComponentActivity() {
     private val signUpViewModel : SignUpViewModel by viewModels<SignUpViewModel>()
     private val updateProfileViewModel : UpdateProfileViewModel by viewModels<UpdateProfileViewModel>()
     private val messagesViewModel : MessagesViewModel by viewModels<MessagesViewModel>()
+    private val addPersonViewModel : AddPersonViewModel by viewModels<AddPersonViewModel>()
     private lateinit var appUser : AppUser
     private var messages : List<String> = listOf("Message 1", "Message 2", "Message 3",
         "Message 1", "Message 2", "Message 3",
@@ -51,7 +54,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(topBar = { AppBar(signInViewModel, navController) },
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)){
-                        NavHost(navController, startDestination = "SignInScreen"){
+                        NavHost(navController, startDestination = "AddPersonScreen"){
                             composable(route = "SignInScreen"){
                                 SignInScreen(viewModel = signInViewModel, navController = navController)
                             }
@@ -63,6 +66,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable (route = "MessagesScreen") {
                                 MessagesScreen(viewModel = messagesViewModel, navController= navController, messages = messages)
+                            }
+                            composable (route = "AddPersonScreen"){
+                                AddPersonScreen(viewModel = addPersonViewModel)
                             }
 
                         }
