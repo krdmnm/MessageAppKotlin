@@ -17,15 +17,16 @@ class SignInViewModel:ViewModel() {
     val uiMessage: MutableStateFlow<String?> = _uiMessage
     private val auth = Firebase.auth
 
-    fun signIn(context: Context, email: String, password:String){
+    fun signIn(context: Context, navController: NavHostController,email: String, password:String){
         println("SignInViewModel signIn: $email $password")
         if(email.isEmpty() || password.isEmpty()){
             _uiMessage.value = "Please enter your email and password"
         } else {
-            _uiMessage.value = ""
+            _uiMessage.value = "Sign In Successful"
             auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
                 println("SignInViewModel signIn(): Success")
                 saveOnSharedPrefs(context, email, password)//From Repo.kt
+                navController.navigate("MessagesScreen")
             }.addOnFailureListener {
                 println("SignInViewModel signIn(): Failed")
                 Toast.makeText(context, "Sign In Failed", Toast.LENGTH_LONG).show()

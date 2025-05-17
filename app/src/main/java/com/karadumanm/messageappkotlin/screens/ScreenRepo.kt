@@ -62,6 +62,11 @@ fun OptionsMenu(viewModel: SignInViewModel, navController: NavHostController){
             navController.navigate("UpdateProfileScreen")
             })
 
+        DropdownMenuItem(text = {Text("Add Your Friend")},
+            onClick = {expanded.value = false
+            navController.navigate("AddPersonScreen")
+            })
+
         DropdownMenuItem(text = {Text("Sign Out")},
             onClick = {expanded.value = false
             viewModel.signOut(context, navController)

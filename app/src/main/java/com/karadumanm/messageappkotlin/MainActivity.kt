@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(topBar = { AppBar(signInViewModel, navController) },
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)){
-                        NavHost(navController, startDestination = "AddPersonScreen"){
+                        NavHost(navController, startDestination = "SignInScreen"){
                             composable(route = "SignInScreen"){
                                 SignInScreen(viewModel = signInViewModel, navController = navController)
                             }
@@ -84,7 +84,7 @@ class MainActivity : ComponentActivity() {
         val password = getFromSharedPrefs(this, "password", "")//From Repo.kt
         println("MainActivity onStart(): $email $password")
         if(email != "" && password != ""){
-            signInViewModel.signIn(this, email, password)
+            //signInViewModel.signIn(this, email, password)
             //Şimdi currentUser alıp AppUser objesi yapalım ve Message sayfasına navigate edelim.
             val auth = Firebase.auth
             val currentUser = auth.currentUser

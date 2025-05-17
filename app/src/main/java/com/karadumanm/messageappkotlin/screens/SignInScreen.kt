@@ -60,15 +60,15 @@ fun SignInScreen(viewModel: SignInViewModel, navController: NavHostController){
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ){
-            SignInButton(context, viewModel, email.value, password.value)
+            SignInButton(context, viewModel, navController, email.value, password.value)
             SignUpButton(viewModel, navController)
         }
     }
 }
 
 @Composable
-fun SignInButton(context: Context, viewModel: SignInViewModel, email: String, password: String){
-    Button(onClick = {viewModel.signIn(context, email, password)},
+fun SignInButton(context: Context, viewModel: SignInViewModel, navController: NavHostController, email: String, password: String){
+    Button(onClick = {viewModel.signIn(context, navController, email, password)},
         colors = ButtonDefaults.buttonColors(contentColor = primaryColor, containerColor = designColor)
         )
     {
