@@ -5,6 +5,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.userProfileChangeRequest
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
 
@@ -29,6 +31,11 @@ class Database {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
             val user = result.user ?: return false
             //Update user
+            val userData = hashMapOf<String, Any>("uid" to result.user!!.uid,
+                "email" to result.user!!.email!!,
+                "displayName" to displayName,
+                "createdAt" to FieldValue.serverTimestamp())
+            fireStore.collection("AppUsers").document(result.user!!.uid).set(userData).await()
             val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(displayName).build()
             user.updateProfile(profileUpdates).await()
             //Create user collection with uid and persons document
@@ -96,6 +103,19 @@ class Database {
         } catch (e: Exception){
             println("Database signUp(): Exception: ${e.message}")
             false
+        }
+    }
+
+    suspend fun search(keyword: String): List<DocumentSnapshot>{
+        try {
+            val querySnapshot = fireStore.collection("AppUsers").whereEqualTo("displayName", keyword).get().await()
+            //querySnapshot.documents
+            println("Database search(): QS $querySnapshot")
+            println("Database search(): QS.D ${querySnapshot.documents}")
+            return querySnapshot.documents
+        } catch(e: Exception){
+            println("Database search(): Exception: ${e.message}")
+            return listOf<DocumentSnapshot>()
         }
     }
 

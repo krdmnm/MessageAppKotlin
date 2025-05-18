@@ -40,13 +40,14 @@ fun AddPersonScreen(viewModel: AddPersonViewModel){
     val displayName = remember { mutableStateOf("") }
     var personResult = remember { mutableStateOf<List<Person>?>(null) }
 
+
     Row(
         modifier = Modifier.fillMaxWidth().padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         DisplayNameTextField(displayName = displayName.value, onValueChange = {displayName.value=it})
         Spacer(modifier = Modifier.padding(5.dp))
-        SearchButton(viewModel)
+        SearchButton(viewModel, displayName.value)
     }
 
     val personList = personResult.value
@@ -58,8 +59,8 @@ fun AddPersonScreen(viewModel: AddPersonViewModel){
 }
 
 @Composable
-fun SearchButton(viewModel: AddPersonViewModel){
-    Button(onClick = {viewModel.search()},
+fun SearchButton(viewModel: AddPersonViewModel, keyword: String){
+    Button(onClick = {viewModel.search(keyword)},
         colors = ButtonDefaults.buttonColors(contentColor = primaryColor, containerColor = designColor))
     {
         Text("Search")

@@ -35,7 +35,6 @@ import androidx.compose.runtime.setValue
 @Composable
 fun AppBar(viewModel: SignInViewModel, navController: NavHostController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    //val currentRoute = navController.currentBackStackEntry?.destination?.route
     val currentRoute = navBackStackEntry?.destination?.route
     if(currentRoute == "MessagesScreen"){
         TopAppBar(title = { Text("Messages") },
