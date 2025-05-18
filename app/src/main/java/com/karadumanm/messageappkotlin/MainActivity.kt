@@ -78,22 +78,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val email = getFromSharedPrefs(this, "email", "")//From Repo.kt
-        val password = getFromSharedPrefs(this, "password", "")//From Repo.kt
-        println("MainActivity onStart(): $email $password")
-        if(email != "" && password != ""){
-            //signInViewModel.signIn(this, email, password)
-            //Şimdi currentUser alıp AppUser objesi yapalım ve Message sayfasına navigate edelim.
-            val auth = Firebase.auth
-            val currentUser = auth.currentUser
-            if(currentUser != null){
-                appUser = AppUser(currentUser.uid, currentUser.email!!, currentUser.displayName!!)
-                //messages sayfasına navigate edelim.
-            }
-        }
-    }
 }
 
 

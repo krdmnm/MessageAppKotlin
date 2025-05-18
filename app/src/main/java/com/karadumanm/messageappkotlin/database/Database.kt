@@ -12,6 +12,16 @@ class Database {
     private val auth = Firebase.auth
     private val fireStore = Firebase.firestore
 
+    suspend fun signIn(email: String, password: String): Boolean{
+        return try{
+            auth.signInWithEmailAndPassword(email, password).await()
+            true
+        } catch(e: Exception){
+            println("Database signIn(): Exception: ${e.message}")
+            false
+        }
+    }
+
     suspend fun signUp(email: String, password: String, displayName: String) : Boolean{
         println("Database signUp(): $email $password")
         return try {
