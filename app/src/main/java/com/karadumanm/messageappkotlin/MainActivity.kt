@@ -9,13 +9,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.karadumanm.messageappkotlin.entities.AppUser
+import com.karadumanm.messageappkotlin.repository.autoSignInOnStart
 import com.karadumanm.messageappkotlin.repository.getFromSharedPrefs
 import com.karadumanm.messageappkotlin.screens.AddPersonScreen
 import com.karadumanm.messageappkotlin.screens.AppBar
@@ -31,6 +34,7 @@ import com.karadumanm.messageappkotlin.viewmodel.SignUpViewModel
 import com.karadumanm.messageappkotlin.viewmodel.UpdateProfileViewModel
 
 class MainActivity : ComponentActivity() {
+    public lateinit var navController: NavHostController
     private val signInViewModel : SignInViewModel by viewModels<SignInViewModel>()
     private val signUpViewModel : SignUpViewModel by viewModels<SignUpViewModel>()
     private val updateProfileViewModel : UpdateProfileViewModel by viewModels<UpdateProfileViewModel>()
@@ -50,8 +54,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
+            autoSignInOnStart(this@MainActivity, signInViewModel, navController)
             MessageAppKotlinTheme {
-                Scaffold(topBar = { AppBar(signInViewModel, navController) },
+                Scaffold(
+                    topBar = { AppBar(signInViewModel, navController) },
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)){
                         NavHost(navController, startDestination = "SignInScreen"){
@@ -77,6 +83,8 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+
 
 }
 

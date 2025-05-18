@@ -29,13 +29,16 @@ import com.karadumanm.messageappkotlin.ui.theme.primaryColor
 import com.karadumanm.messageappkotlin.ui.theme.secondaryColor
 import com.karadumanm.messageappkotlin.viewmodel.SignInViewModel
 import androidx.compose.runtime.getValue
+import com.karadumanm.messageappkotlin.repository.autoSignInOnStart
 
 
 @Composable
 fun SignInScreen(viewModel: SignInViewModel, navController: NavHostController){
+    val context = LocalContext.current
+    //autoSignInOnStart(context, viewModel, navController)
     var email  = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
-    val context = LocalContext.current
+
     val uiMessage by viewModel.uiMessage.collectAsState()
     LaunchedEffect(uiMessage) {
         uiMessage?.let {

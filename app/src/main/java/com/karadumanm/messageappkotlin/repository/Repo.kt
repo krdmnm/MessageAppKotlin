@@ -1,7 +1,18 @@
 package com.karadumanm.messageappkotlin.repository
 
 import android.content.Context
+import androidx.navigation.NavHostController
+import com.karadumanm.messageappkotlin.viewmodel.SignInViewModel
 
+
+fun autoSignInOnStart(context: Context, viewModel: SignInViewModel, navController: NavHostController){
+    val email = getFromSharedPrefs(context, "email", "")
+    val password = getFromSharedPrefs(context, "password", "")
+    if(email != "" && password != ""){
+        println("autoSignInOnStart: $email $password")
+        viewModel.signIn(context, navController, email, password)
+    }
+}
 
 //SahredPreferences Jobs
 fun saveOnSharedPrefs(context: Context, key: String, value: String){

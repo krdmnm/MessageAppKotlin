@@ -26,7 +26,9 @@ class SignInViewModel:ViewModel() {
             val response = db.signIn(email, password)
             if(response){
                 _uiMessage.value = "Signed In Successfully"
-                saveOnSharedPrefs(context, email, password)
+                saveOnSharedPrefs(context, "email", email)
+                saveOnSharedPrefs(context, "password", password)
+                navController.popBackStack()
                 navController.navigate("MessagesScreen")
             } else {
                 _uiMessage.value = "Sign In Failed, Try Again"

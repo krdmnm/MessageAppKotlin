@@ -27,14 +27,18 @@ import com.karadumanm.messageappkotlin.ui.theme.designColor
 import com.karadumanm.messageappkotlin.ui.theme.visibilityIcon
 import com.karadumanm.messageappkotlin.ui.theme.visibilityOffIcon
 import com.karadumanm.messageappkotlin.viewmodel.SignInViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 //Appbar MainActivity uses
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(viewModel: SignInViewModel, navController: NavHostController){
-    val currentRoute = navController.currentBackStackEntry?.destination?.route
-    if(currentRoute == "SignInScreen" || currentRoute == "SignUpScreen"){
-        TopAppBar(title = { Text("Message App") },
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    //val currentRoute = navController.currentBackStackEntry?.destination?.route
+    val currentRoute = navBackStackEntry?.destination?.route
+    if(currentRoute == "MessagesScreen"){
+        TopAppBar(title = { Text("Messages") },
             actions = {
                 OptionsMenu(viewModel, navController)
             })
